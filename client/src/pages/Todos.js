@@ -5,6 +5,10 @@ function Todos() {
     const [todos, setTodos] = useState([]);
 
     useEffect(() => {
+        getTodos();
+    }, [])
+
+    function getTodos() {
         axios.get('http://localhost:3001/api/v1/todos',
             {
                 headers: {
@@ -17,7 +21,7 @@ function Todos() {
             .catch((error) => {
                 console.log(error);
             });
-    })
+    }
 
     function handleAddTodo(event) {
         event.preventDefault();
@@ -38,10 +42,23 @@ function Todos() {
                 event.target.reset()
             })
             .catch((error) => {
-
                 console.log(error);
             });
+    }
 
+    function handleDeleteTodo(id) {
+        axios.delete(`http://localhost:3001/api/v1/todos/${id}`,
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("access-token")
+                }
+            })
+            .then((response) => {
+                getTodos();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     return (
@@ -50,8 +67,9 @@ function Todos() {
 
             <div className='w-1/3 flex flex-col items-center '>
                 <div className='w-full flex justify-center mb-2 border-b border-gray-200'>
-                    <h1 className='w-1/2 text-center font-semibold'>Title</h1>
-                    <h1 className='w-1/2 text-center font-semibold'>Description</h1>
+                    <h1 className='w-2/5 text-center font-semibold'>Title</h1>
+                    <h1 className='w-2/5 text-center font-semibold'>Description</h1>
+                    <h1 className='w-1/5 text-center font-semibold'>Modify</h1>
                 </div>
 
                 {todos.map((todo, idx) => {
@@ -63,7 +81,12 @@ function Todos() {
                                 <p className='w-1/2 text-center'>{todo.description}</p>
                             </div>
                             <button className='ml-8 bg-gray-300 rounded-md px-1'>Edit</button>
-                            <button className='ml-2 bg-red-400 rounded-md px-1'>Delete</button>
+                            <button
+                                className='ml-2 bg-red-400 hover:bg-red-300 rounded-md px-1'
+                                onClick={() => { handleDeleteTodo(todo.id) }}
+                            >
+                                Delete
+                            </button>
                         </div>
                     );
                 })}
@@ -73,7 +96,7 @@ function Todos() {
                 <form className='space-x-4' onSubmit={handleAddTodo}>
                     <input name='title' className='ml-2 border border-gray-500 rounded-md px-2' />
                     <input name='description' className='border border-gray-500 rounded-md px-2' />
-                    <button className='px-2 bg-gray-300 border border-gray-600 rounded-lg'>
+                    <button className='px-2 bg-gray-300 hover:bg-gray-200 border border-gray-600 rounded-lg'>
                         Add
                     </button>
                 </form>

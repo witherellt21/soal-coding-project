@@ -40,6 +40,15 @@ class BaseTable {
     filter(key, value) {
         return this.instances.filter((instance) => instance[key] == value);
     }
+
+    delete(id) {
+        let idx = this.instances.find((instance) => instance[this.model.primaryKey] == id);
+
+        delete this.instances[idx];
+        this.instances = this.instances.splice(idx, idx);
+
+        return "Success";
+    }
 }
 
 module.exports = BaseTable
