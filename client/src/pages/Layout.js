@@ -12,6 +12,7 @@ function Layout() {
 
     const handleSignOut = () => {
         setUser("");
+        localStorage.setItem("access-token", null);
     }
 
     return (
