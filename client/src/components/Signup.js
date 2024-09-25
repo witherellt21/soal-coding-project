@@ -10,12 +10,12 @@ function Signup() {
 
     function handleSignup(event) {
         event.preventDefault();
-        const inputs = event.currentTarget.elements;
+        const inputs = event.target.elements;
 
         axios.post('http://localhost:3001/api/v1/signup',
             {
                 email: inputs.email.value,
-                password1: inputs.password1.value,
+                password: inputs.password.value,
                 password2: inputs.password2.value
             })
             .then(function (response, req) {
@@ -45,7 +45,7 @@ function Signup() {
                 </div>
                 <div>
                     <label className='pr-2'>Password:</label>
-                    <input name="password1" className='px-2 border-2 border-gray-500' />
+                    <input name="password" className='px-2 border-2 border-gray-500' />
                 </div>
                 <div>
                     <label className='pr-2'>Password Again:</label>

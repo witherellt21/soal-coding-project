@@ -11,7 +11,7 @@ function Login() {
 
     function handleLogin(event) {
         event.preventDefault();
-        const inputs = event.currentTarget.elements;
+        const inputs = event.target.elements;
 
         axios.post('http://localhost:3001/api/v1/login',
             {

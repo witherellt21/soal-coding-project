@@ -20,7 +20,7 @@ app.post('/api/v1/login', (req, res) => {
 });
 
 app.post('/api/v1/signup', (req, res) => {
-    user = db.users.create(req.body);
+    user = db.users.signup(req.body);
 
     if (user.errors) {
         res.status(400);
@@ -34,11 +34,21 @@ app.post('/api/v1/signup', (req, res) => {
 app.use(auth.JWTAuthenticationMiddleware);
 
 app.post('/api/v1/todos', (req, res) => {
-    res.send({});
+    todo = db.todos.create({ ...req.body, user: req.user });
+
+    if (todo.errors) {
+        res.status(400);
+    } else {
+        res.status(201);
+    }
+
+    res.send(todo);
 });
 
 app.get('/api/v1/todos', (req, res) => {
-    res.send([{}]);
+    todos = db.todos.filter('user', req.user);
+
+    res.send(todos);
 });
 
 app.patch('/api/v1/todos', (req, res) => {

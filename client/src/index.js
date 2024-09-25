@@ -8,9 +8,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <div className="h-screen w-screen">
-        <App />
-      </div>
+      <App />
 
     </AuthProvider>
   </React.StrictMode>
