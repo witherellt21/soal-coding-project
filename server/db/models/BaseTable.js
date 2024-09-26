@@ -12,12 +12,9 @@ class BaseTable {
     }
 
     get(id, primaryKey) {
-        for (let instance of this.instances) {
-            if (instance[primaryKey || this.model.primaryKey] == id) {
-                return instance;
-            }
-        }
-        return null;
+        let instance = this.instances.find((instance) => instance[primaryKey || this.model.primaryKey] == id)
+
+        return instance;
     }
 
     list() {
@@ -42,12 +39,29 @@ class BaseTable {
     }
 
     delete(id) {
-        let idx = this.instances.find((instance) => instance[this.model.primaryKey] == id);
+        let target = this.instances.find((instance) => instance[this.model.primaryKey] == id);
+        let idx = this.instances.indexOf(target);
 
         delete this.instances[idx];
-        this.instances = this.instances.splice(idx, idx);
+
+        this.instances.splice(idx, 1);
 
         return "Success";
+    }
+
+    update(id, data) {
+        let instance = this.get(id);
+
+        if (!instance) {
+            return { errors: this.model.name + " with " + this.model.primaryKey + " '" + id + "' does not exist" }
+        }
+
+        else {
+            for (const [key, value] of Object.entries(data)) {
+                instance[key] = value;
+            }
+        }
+        return instance;
     }
 }
 

@@ -3,6 +3,7 @@ import axios from 'axios';
 
 function Todos() {
     const [todos, setTodos] = useState([]);
+    const [editTodo, setEditTodo] = useState(null);
 
     useEffect(() => {
         getTodos();
@@ -55,6 +56,30 @@ function Todos() {
             })
             .then((response) => {
                 getTodos();
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    function handleEditTodo(event, id) {
+        event.preventDefault();
+        const inputs = event.target.elements;
+
+        axios.patch(`http://localhost:3001/api/v1/todos/${id}`,
+            {
+                title: inputs.title.value,
+                description: inputs.description.value
+            },
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("access-token")
+                }
+            })
+            .then((response) => {
+                setEditTodo(null);
+                getTodos();
             })
             .catch((error) => {
                 console.log(error);
@@ -73,20 +98,40 @@ function Todos() {
                 </div>
 
                 {todos.map((todo, idx) => {
+                    if (todo.id == editTodo) {
+                        return (
+                            <form key={idx} className='flex w-full space-x-4 relative' onSubmit={(event) => handleEditTodo(event, todo.id)}>
+                                <span className='absolute left-0'>{idx + 1}</span>
+
+                                <input name='title' defaultValue={todo.title} className='ml-2 border text-center border-gray-500 rounded-md px-2' />
+                                <input name='description' defaultValue={todo.description} className='text-center border border-gray-500 rounded-md px-2' />
+                                <button className='px-2 bg-gray-300 hover:bg-gray-200 border border-gray-600 rounded-lg'>
+                                    Confirm
+                                </button>
+                            </form>
+                        )
+                    }
                     return (
                         <div key={idx} className='flex w-full justify-center items-center relative py-1 border-b border-gray-100'>
                             <div className='flex w-full'>
                                 <span className='absolute left-0'>{idx + 1}</span>
-                                <span className='w-1/2 text-center'>{todo.title}</span>
-                                <p className='w-1/2 text-center'>{todo.description}</p>
+                                <span className='w-2/5 text-center break-words'>{todo.title}</span>
+                                <p className='w-2/5 text-center break-words'>{todo.description}</p>
+                                <div className='w-1/5'>
+                                    <button
+                                        className='ml bg-gray-300 rounded-md px-1'
+                                        onClick={() => setEditTodo(todo.id)}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className='ml-2 bg-red-400 hover:bg-red-300 rounded-md px-1'
+                                        onClick={() => { handleDeleteTodo(todo.id) }}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
-                            <button className='ml-8 bg-gray-300 rounded-md px-1'>Edit</button>
-                            <button
-                                className='ml-2 bg-red-400 hover:bg-red-300 rounded-md px-1'
-                                onClick={() => { handleDeleteTodo(todo.id) }}
-                            >
-                                Delete
-                            </button>
                         </div>
                     );
                 })}

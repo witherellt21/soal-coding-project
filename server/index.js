@@ -51,8 +51,10 @@ app.get('/api/v1/todos', (req, res) => {
     res.send(todos);
 });
 
-app.patch('/api/v1/todos', (req, res) => {
-    res.send([{}]);
+app.patch('/api/v1/todos/:id', (req, res) => {
+    instance = db.todos.update(req.params.id, req.body)
+
+    res.send(instance);
 });
 
 app.delete('/api/v1/todos/:id', (req, res) => {
