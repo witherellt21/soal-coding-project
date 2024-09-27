@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { AuthProvider } from './hooks/AuthProvider';
+import axios from 'axios';
+
+const loc = window.location;
+
+axios.defaults.baseURL = `${loc.protocol}//${loc.hostname}:${process.env.REACT_APP_SERVER_PORT}/api/v1`;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

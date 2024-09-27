@@ -10,10 +10,9 @@ function Layout() {
     const { user, setUser } = useAuth();
     const location = useLocation();
 
-
     const handleSignOut = () => {
-        setUser("");
-        localStorage.setItem("access-token", null);
+        setUser(false);
+        localStorage.removeItem("access-token");
     }
 
     return (

@@ -10,7 +10,7 @@ function Todos() {
     }, [])
 
     function getTodos() {
-        axios.get('http://localhost:3001/api/v1/todos',
+        axios.get('/todos',
             {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("access-token")
@@ -28,7 +28,7 @@ function Todos() {
         event.preventDefault();
         const inputs = event.target.elements;
 
-        axios.post('http://localhost:3001/api/v1/todos',
+        axios.post('/todos',
             {
                 title: inputs.title.value,
                 description: inputs.description.value
@@ -48,7 +48,7 @@ function Todos() {
     }
 
     function handleDeleteTodo(id) {
-        axios.delete(`http://localhost:3001/api/v1/todos/${id}`,
+        axios.delete(`/todos/${id}`,
             {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("access-token")
@@ -67,7 +67,7 @@ function Todos() {
         event.preventDefault();
         const inputs = event.target.elements;
 
-        axios.patch(`http://localhost:3001/api/v1/todos/${id}`,
+        axios.patch(`/todos/${id}`,
             {
                 title: inputs.title.value,
                 description: inputs.description.value
@@ -90,7 +90,7 @@ function Todos() {
         <div className='flex flex-col items-center pb-10'>
             <h1 className='w-1/3 text-2xl text-center pb-2 mb-4 border-b-2 border-gray-300'>Todo List</h1>
 
-            <div className='w-2/5 flex flex-col items-center '>
+            <div className='flex flex-col items-center '>
                 <div className='w-full flex justify-center mb-2 border-b border-gray-200'>
                     <h1 className='w-2/5 text-center font-semibold'>Title</h1>
                     <h1 className='w-2/5 text-center font-semibold'>Description</h1>
@@ -113,13 +113,13 @@ function Todos() {
                     }
                     return (
                         <div key={idx} className='flex w-full justify-center items-center relative py-1 border-b border-gray-100'>
-                            <div className='flex w-full'>
-                                <span className='absolute left-0'>{idx + 1}</span>
-                                <span className='w-2/5 text-center break-words'>{todo.title}</span>
-                                <p className='w-2/5 text-center break-words'>{todo.description}</p>
-                                <div className='w-1/5'>
+                            <div className='flex w-full justify-between'>
+                                <span className='absolute -left-10'>{idx + 1}</span>
+                                <span className=' w-44 text-center break-words'>{todo.title}</span>
+                                <p className='ml-4 min-w-44 max-w-64 text-center break-words'>{todo.description}</p>
+                                <div className=''>
                                     <button
-                                        className='ml bg-gray-300 rounded-md px-1'
+                                        className='ml-4 bg-gray-300 rounded-md px-1'
                                         onClick={() => setEditTodo(todo.id)}
                                     >
                                         Edit

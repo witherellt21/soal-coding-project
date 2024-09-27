@@ -12,7 +12,7 @@ function Signup() {
         event.preventDefault();
         const inputs = event.target.elements;
 
-        axios.post('http://localhost:3001/api/v1/signup',
+        axios.post('/signup',
             {
                 email: inputs.email.value,
                 password: inputs.password.value,

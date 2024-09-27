@@ -13,18 +13,19 @@ function Login() {
         event.preventDefault();
         const inputs = event.target.elements;
 
-        axios.post('http://localhost:3001/api/v1/login',
+        axios.post('/login',
             {
                 email: inputs.email.value,
                 password: inputs.password.value,
             })
             .then(function (response, req) {
                 localStorage.setItem("access-token", response.data.AccessToken)
-                setUser(inputs.email.value);
+                setUser(true);
                 setErrorMsg(null);
                 navigate('/');
             })
             .catch(function (error) {
+                console.log(error)
                 setErrorMsg(error.response.data.errors);
             })
         return;
