@@ -1,7 +1,6 @@
 # Soal Coding Project
 
-Start by cloning the project to your local directory.
-
+Start by cloning the project to your local directory. Ensure that you also have node installed on your device with the a package manager like npm or yarn, which can be used interchangably in this project.
 
 ## Setting up the environment
 From the command line, navigate to the client directory and run the following command to make an example .env file:
