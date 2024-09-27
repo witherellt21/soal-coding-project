@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Outlet, Link,
     Navigate,
@@ -9,6 +9,7 @@ import { useAuth } from '../hooks/AuthProvider';
 function Layout() {
     const { user, setUser } = useAuth();
     const location = useLocation();
+
 
     const handleSignOut = () => {
         setUser("");

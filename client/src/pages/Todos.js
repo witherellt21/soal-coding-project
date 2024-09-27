@@ -90,7 +90,7 @@ function Todos() {
         <div className='flex flex-col items-center pb-10'>
             <h1 className='w-1/3 text-2xl text-center pb-2 mb-4 border-b-2 border-gray-300'>Todo List</h1>
 
-            <div className='w-1/3 flex flex-col items-center '>
+            <div className='w-2/5 flex flex-col items-center '>
                 <div className='w-full flex justify-center mb-2 border-b border-gray-200'>
                     <h1 className='w-2/5 text-center font-semibold'>Title</h1>
                     <h1 className='w-2/5 text-center font-semibold'>Description</h1>
@@ -125,7 +125,7 @@ function Todos() {
                                         Edit
                                     </button>
                                     <button
-                                        className='ml-2 bg-red-400 hover:bg-red-300 rounded-md px-1'
+                                        className='ml-1 bg-red-400 hover:bg-red-300 rounded-md px-1'
                                         onClick={() => { handleDeleteTodo(todo.id) }}
                                     >
                                         Delete
@@ -138,10 +138,10 @@ function Todos() {
 
                 <br />
 
-                <form className='space-x-4' onSubmit={handleAddTodo}>
-                    <input name='title' className='ml-2 border border-gray-500 rounded-md px-2' />
-                    <input name='description' className='border border-gray-500 rounded-md px-2' />
-                    <button className='px-2 bg-gray-300 hover:bg-gray-200 border border-gray-600 rounded-lg'>
+                <form className='space-x-2' onSubmit={handleAddTodo}>
+                    <input name='title' className='w-2/5 border border-gray-500 rounded-md px-2' />
+                    <input name='description' className='w-2/5 border border-gray-500 rounded-md px-2' />
+                    <button className=' px-2 bg-gray-300 hover:bg-gray-200 border border-gray-600 rounded-lg'>
                         Add
                     </button>
                 </form>
