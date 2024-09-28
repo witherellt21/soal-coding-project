@@ -29,3 +29,7 @@ npm start --prefix server
 ```
 
 Now open your browser to http://localhost:{PORT} where the PORT is the port you specified in the client .env file.
+
+## Using the application
+
+Start by creating an account using the sign up menu. This will automatically log you in so that you can edit your todos. Use the inputs and the add button to create todos, and the edit/delete buttons to modify existing todos.
